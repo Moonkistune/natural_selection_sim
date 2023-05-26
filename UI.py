@@ -25,11 +25,14 @@ def check_souris(bouton):
         if bouton == "bouton_start":
             if (mouse[0] >= constantes.x_bouton_start_fenetre and mouse[0] <= constantes.x_bouton_start_fenetre + constantes.LARGEUR_BOUTON_START) and (mouse[1] >= constantes.y_bouton_start_fenetre and mouse[1] <= constantes.y_bouton_start_fenetre + constantes.HAUTEUR_BOUTON_START):
                 return True
-        elif bouton == "bouton_plus_nb_individus":
-            return
         elif bouton == "bouton_moins_nb_individus":
-            return
+            if (mouse[0] >= constantes.x_bouton_moins_individus_fenetre and mouse[0] <= constantes.x_bouton_moins_individus_fenetre + constantes.LARGEUR_BOUTON_MOINS) and (mouse[1 >= constantes.y_bouton_moins_individus_fenetre and mouse[1] <= constantes.y_bouton_moins_individus_fenetre + constantes.HAUTEUR_BOUTON_MOINS]):
+                return True
         
+        elif bouton == "bouton_plus_nb_individus":
+            if (mouse[0] >= constantes.x_bouton_plus_individus_fenetre and mouse[0] <= constantes.x_bouton_plus_individus_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1 >= constantes.y_bouton_plus_individus_fenetre and mouse[1] <= constantes.y_bouton_plus_individus_fenetre + constantes.HAUTEUR_BOUTON_PLUS]):
+                return True
+
         else:
             return False
             

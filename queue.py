@@ -1,5 +1,5 @@
 # Fichier contenant les listes, les variables ainsi que les fonctions pour agir sur les listes
-nb_individus = 5
+nb_individus = 20
 
 
 

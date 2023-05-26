@@ -6,7 +6,7 @@ from Simulation import *
 from UI import *
 
 
-facteur_food = 100 # facteur de nourriture
+facteur_food = 150 # facteur de nourriture
 
 
 class App:
@@ -98,14 +98,13 @@ class App:
                 break
             # Si l'utilisateur appuie sur le bouton plus individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_nb_individus") == True:
-                
-                self.pause = not self.pause
-                break
+                queue.nb_individus+=1
+                print(queue.nb_individus)
             # Si l'utilisateur appuie sur le bouton moins individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_nb_individus") == True:
-                # self.lecture = True
-                self.pause = not self.pause
-                break
+                queue.nb_individus-=1
+                print(queue.nb_individus)
+
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
             if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                 self.pause = not self.pause
