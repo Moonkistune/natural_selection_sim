@@ -1,6 +1,9 @@
 # Fichier contenant les listes, les variables ainsi que les fonctions pour agir sur les listes
-nb_individus = 20
-
+nb_individus = 20  # Nombre d'individu 
+facteur_food = 150 # Facteur de nourriture
+time_generation = 15    # Durer d'une génération
+timer = time_generation
+seconde=20*time_generation #permet de trouver le nombre de fois ou la boucle principale est jouer
 
 
 # Liste contenant l'ensemble des individus
