@@ -1,5 +1,6 @@
-import pygame, constantes
+import pygame, constantes, queue
 from Simulation import *
+
 
 class Button():
     def __init__(self, x, y, chemin_image):
@@ -61,7 +62,7 @@ def texte_nb_individus(fenetre):
     # Chargement de la police
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("individus : 25", True, couleur_texte)
+    texte_generation = police.render("individus : {} ".format(queue.nb_individus), True, couleur_texte)
     # Position du texte
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
