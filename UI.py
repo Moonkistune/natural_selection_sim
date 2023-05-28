@@ -1,4 +1,4 @@
-import pygame, constantes, queue
+import pygame, constantes, queue, stats
 from Simulation import *
 
 
@@ -29,7 +29,6 @@ def check_souris(bouton):
     elif bouton == "bouton_moins_nb_individus":
         if (mouse[0] >= constantes.x_bouton_moins_individus_fenetre and mouse[0] <= constantes.x_bouton_moins_individus_fenetre + constantes.LARGEUR_BOUTON_MOINS) and (mouse[1] >= constantes.y_bouton_moins_individus_fenetre and mouse[1] <= constantes.y_bouton_moins_individus_fenetre + constantes.HAUTEUR_BOUTON_MOINS):
             return True
-        
     elif bouton == "bouton_plus_nb_individus":
         if (mouse[0] >= constantes.x_bouton_plus_individus_fenetre and mouse[0] <= constantes.x_bouton_plus_individus_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1] >= constantes.y_bouton_plus_individus_fenetre and mouse[1] <= constantes.y_bouton_plus_individus_fenetre + constantes.HAUTEUR_BOUTON_PLUS):
             return True
@@ -45,7 +44,6 @@ def check_souris(bouton):
     elif bouton == "bouton_plus_time":
         if (mouse[0] >= constantes.x_bouton_plus_time_fenetre and mouse[0] <= constantes.x_bouton_plus_time_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1] >= constantes.y_bouton_plus_time_fenetre and mouse[1] <= constantes.y_bouton_plus_time_fenetre + constantes.HAUTEUR_BOUTON_PLUS):
             return True
-
     else:
         return False
             
@@ -60,7 +58,7 @@ def texte_timer(fenetre):
     # Couleur du texte (blanc)
     couleur_texte = (255, 255, 255)
     # Chargement de la police
-    police = pygame.font.Font(None, constantes.POLICE_ECRITURE+5)  # None spécifie la police par défaut, 36 est la taille de la police
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE + 8)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
     texte_generation = police.render("{}".format(queue.timer), True, couleur_texte)
     # Position du texte
@@ -109,6 +107,80 @@ def texte_time_generation(fenetre):
     position_texte = ((0.35*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
 
+def texte_individus_start(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("nombre individus départ: {}".format(stats.nb_individus_start), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.15*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_individus_alive(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("nombre individus en vie: {}".format(stats.nb_individus_alive), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.25*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_birth(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("nombre naissance: {}".format(stats.births), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.35*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_individus_dead(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("nombre de mort: {}".format(stats.nb_individus_dead), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.45*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_individu_dead_total(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("nombre individus mort total: {}".format(stats.nb_individus_dead_total), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.55*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+
+def texte_moyenne_size(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("moyenne taille individus: {}".format(stats.individus_moyenne_size), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.65*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_moyenne_view(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("moyenne champ de vision individus: {}".format(stats.individus_moyenne_view), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.75*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_moyenne_speed(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("moyenne speed individus: {}".format(stats.individus_moyenne_speed), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.85*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+       
+
 
 def ecran_avant_début(fenetre):
     # On commence par effacer l'écran de la frame précédante en coloriant l'écran
@@ -155,6 +227,16 @@ def ecran_avant_début(fenetre):
     texte_facteur_food(surface_settings)
     texte_time_generation(surface_settings)
     texte_timer(surface_settings)
+    texte_moyenne_size(surface_stats)
+    texte_moyenne_view(surface_stats)
+    texte_moyenne_speed(surface_stats)
+    texte_individus_start(surface_stats)
+    texte_individus_alive(surface_stats)
+    texte_birth(surface_stats)
+    texte_individus_dead(surface_stats)
+    texte_individu_dead_total(surface_stats)
+
+
 
     
     # On injecte les surfaces sur l'écran
