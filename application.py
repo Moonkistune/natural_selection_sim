@@ -111,23 +111,21 @@ class App:
             # Si l'utilisateur appuie sur le bouton plus individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_nb_individus") == True:
                 queue.nb_individus += 1
-                print(queue.nb_individus)
             # Si l'utilisateur appuie sur le bouton moins individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_nb_individus") == True:
-                queue.nb_individus -= 1
-                print(queue.nb_individus)
+                if queue.nb_individus>0:
+                    queue.nb_individus -= 1
+ 
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_food"):
-                queue.facteur_food -= 5
-                print(queue.facteur_food)
+                if queue.facteur_food >= 5:
+                    queue.facteur_food -= 5
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_food"):
                 queue.facteur_food += 5
-                print(queue.facteur_food)
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_time"):
-                queue.time_generation -=1
-                print(queue.time_generation)
+                if queue.time_generation>0:
+                    queue.time_generation -=1   
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_time"):
                 queue.time_generation +=1
-                print(queue.time_generation)
 
 
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
