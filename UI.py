@@ -3,17 +3,20 @@ from Simulation import *
 
 
 class Button():
+    
     def __init__(self, x, y, chemin_image):
         self.etat_click = False
         self.x = x
         self.y = y
         
-        if chemin_image == "assets/start_bouton_troll.png":
+        if chemin_image == "start_bouton_troll.png":
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_START, constantes.HAUTEUR_BOUTON_START))
         elif chemin_image == "assets/plus_bouton.png":
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
         elif chemin_image == "assets/moins_bouton.png":
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
+        elif chemin_image =="assets/bouton_clear.png":
+            self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
         
         self.rect = self.image.get_rect()
     
@@ -47,7 +50,6 @@ def check_souris(bouton):
     else:
         return False
             
-        
         # morceau de code pour tester si ça marche
         # if mouse[0] >= 0 and mouse[1] >= 0:
         #     return True
@@ -64,7 +66,6 @@ def texte_timer(fenetre):
     # Position du texte
     position_texte = ((0.85*constantes.LARGEUR_SETTINGS), (0.1*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)   
-
 
 def texte_generation(fenetre):
     # Couleur du texte (blanc)
@@ -97,6 +98,14 @@ def texte_facteur_food(fenetre):
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.2*constantes.HAUTEUR_SETTINGS ))
     fenetre.blit(texte_generation, position_texte)
 
+def texte_tableur(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("tableur:", True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.4*constantes.HAUTEUR_SETTINGS ))
+    fenetre.blit(texte_generation, position_texte)
 
 def texte_time_generation(fenetre):
     # Couleur du texte (blanc)
@@ -130,7 +139,7 @@ def texte_birth(fenetre):
     couleur_texte = (255, 255, 255)
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("nombre naissance: {}".format(stats.births), True, couleur_texte)
+    texte_generation = police.render("nombre naissances: {}".format(stats.births), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.35*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
 
@@ -139,7 +148,7 @@ def texte_individus_dead(fenetre):
     couleur_texte = (255, 255, 255)
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("nombre de mort: {}".format(stats.nb_individus_dead), True, couleur_texte)
+    texte_generation = police.render("nombre de morts: {}".format(stats.nb_individus_dead), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.45*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
 
@@ -151,7 +160,6 @@ def texte_individu_dead_total(fenetre):
     texte_generation = police.render("nombre individus mort total: {}".format(stats.nb_individus_dead_total), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.55*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
-
 
 def texte_moyenne_size(fenetre):
     # Couleur du texte (blanc)
@@ -180,8 +188,6 @@ def texte_moyenne_speed(fenetre):
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.85*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
        
-
-
 def ecran_avant_début(fenetre):
     # On commence par effacer l'écran de la frame précédante en coloriant l'écran
     fenetre.fill("white")
@@ -191,13 +197,10 @@ def ecran_avant_début(fenetre):
     surface_settings = pygame.Surface((constantes.LARGEUR_SETTINGS, constantes.HAUTEUR_SETTINGS))
     surface_stats = pygame.Surface((constantes.LARGEUR_STATS, constantes.HAUTEUR_STATS))
     
-    
     # On leur donne des couleurs
     surface_general.fill("black")  # couleur noire
     surface_stats.fill((0, 133, 31))  # couleur verte
-    surface_settings.fill("blue")  # couleur bleu
-
-    
+    surface_settings.fill("blue")  # couleur bleu 
 
     # Affichage des boutons
     image = pygame.transform.scale(pygame.image.load("assets/start_bouton_troll.png"), (constantes.LARGEUR_BOUTON_START, constantes.HAUTEUR_BOUTON_START))
@@ -221,10 +224,13 @@ def ecran_avant_début(fenetre):
     image = pygame.transform.scale(pygame.image.load("assets/plus_bouton.png"), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
     surface_settings.blit(image, (constantes.x_bouton_plus_time_settings, constantes.y_bouton_plus_time_settings))
 
+    image = pygame.transform.scale(pygame.image.load("assets/bouton_clear.png"), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
+    surface_settings.blit(image, (constantes.x_bouton_start_settings, constantes.y_bouton_start_settings))
 
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)
     texte_facteur_food(surface_settings)
+    texte_tableur(surface_settings)
     texte_time_generation(surface_settings)
     texte_timer(surface_settings)
     texte_moyenne_size(surface_stats)
@@ -236,14 +242,10 @@ def ecran_avant_début(fenetre):
     texte_individus_dead(surface_stats)
     texte_individu_dead_total(surface_stats)
 
-
-
-    
     # On injecte les surfaces sur l'écran
     fenetre.blit(surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)
     fenetre.blit(surface_settings, (constantes.X_SETTINGS, constantes.Y_SETTINGS))
     fenetre.blit(surface_stats, (constantes.X_STATS, constantes.Y_STATS))
-    
     
     pygame.display.flip()
 

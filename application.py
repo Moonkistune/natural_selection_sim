@@ -5,6 +5,7 @@ from Simulation import *
 
 
 class App:
+    
     def __init__(self) -> None:
         # On va faire 20 frames à chaque seconde (20 FPS), donc la boucle principale est répétée 20 fois à chaque seconde
         self.FPS = 20 # 20 fps recommandé
@@ -16,7 +17,6 @@ class App:
         pygame.display.set_caption("Simulation de la vie")
         self.screen = pygame.display.set_mode((constantes.largeur, constantes.hauteur)) # On importe les valeurs récupérées dans le fichier constantes
         
-        
         self.chrono = pygame.time.Clock()
 
         # Création des boutons
@@ -26,7 +26,7 @@ class App:
         self.bouton_moins_food = UI.Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
         self.bouton_plus_food = UI.Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
         self.bouton_moins_time = UI.Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
-
+        self.bouton_clear = UI.Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_clear.png")
     # Boucle principale du programme
     def main(self) -> None:
         
@@ -87,9 +87,7 @@ class App:
                     while True:
                         self.Demande_Evenements_END()
                         self.screen.fill("black")
-                        pygame.display.flip()
-                        
-                     
+                        pygame.display.flip()           
 
         # On arrive ici uniquement si l'utilisateur souhaite quitter le programme, donc on ferme pygame
         pygame.quit()
@@ -128,8 +126,6 @@ class App:
                     queue.time_generation -=1   
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_time"):
                 queue.time_generation +=1
-
-
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
             if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                 self.pause = not self.pause
@@ -143,11 +139,12 @@ class App:
         for event in rep:
             # Si l'utilisateur appuie sur la touche ECHAP, quitte la simulation
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                pygame.quit()
-        
+                pygame.quit() 
 
 supp = ""
-# while supp != "y" or supp != "n":
-supp = input("Souhaitez-vous vider la feuille de calcul ? (y ou n)\n")   
+while True:
+    supp = input("Souhaitez-vous vider la feuille de calcul ? (y ou n)\n")  
+    if supp == "y" or supp == "n":
+        break     
 run = App()
 run.main()
