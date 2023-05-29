@@ -1,6 +1,6 @@
 import os
 os.chdir("natural_selection_sim-main/")
-import pygame, constantes, UI, queue
+import pygame, constantes, UI, queue, stats, export
 from Simulation import *
 
 
@@ -29,10 +29,19 @@ class App:
 
     # Boucle principale du programme
     def main(self) -> None:
+        
+        # Prépare pour l'export des statistiques
+        if supp == "y":
+            export.clear()
+        else:
+            export.create_sheet()
+        export.load_and_write()
+        
         while self.pause == True:
             self.Demande_Evenements()
             UI.ecran_avant_début(self.screen)
 
+        stats.nb_individus_start = queue.nb_individus
         self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
         queue.timer = queue.time_generation
         
@@ -74,7 +83,13 @@ class App:
                 queue.timer= queue.time_generation
                 # C'est une boucle for-else, ce else se déclenche uniquement si aucun "break" n'a été déclenché
                 # Après 15 secondes, on démarre un nouveau tour, naissances, morts, apparition de nourriture
-                self.simulation.Nouveau_tour(queue.facteur_food)
+                if self.simulation.Nouveau_tour(queue.facteur_food) == False:
+                    while True:
+                        self.Demande_Evenements_END()
+                        self.screen.fill("black")
+                        pygame.display.flip()
+                        
+                     
 
         # On arrive ici uniquement si l'utilisateur souhaite quitter le programme, donc on ferme pygame
         pygame.quit()
@@ -103,7 +118,6 @@ class App:
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_nb_individus") == True:
                 if queue.nb_individus>0:
                     queue.nb_individus -= 1
- 
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_food"):
                 if queue.facteur_food >= 5:
                     queue.facteur_food -= 5
@@ -121,7 +135,19 @@ class App:
                 self.pause = not self.pause
                 break
         # return rep
-    
-    
+        
+    def Demande_Evenements_END(self):
+        rep:list = pygame.event.get()
+
+        # On itère sur la liste pour vérifier si il y a un élément qui nous intéresse
+        for event in rep:
+            # Si l'utilisateur appuie sur la touche ECHAP, quitte la simulation
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+        
+
+supp = ""
+# while supp != "y" or supp != "n":
+supp = input("Souhaitez-vous vider la feuille de calcul ? (y ou n)\n")   
 run = App()
 run.main()
