@@ -1,11 +1,10 @@
-import pygame, constantes, queue, stats
+import pygame, constantes, stockage, stats
 from Simulation import *
 
 
 class Button():
     
     def __init__(self, x, y, chemin_image):
-        self.etat_click = False
         self.x = x
         self.y = y
         
@@ -20,9 +19,11 @@ class Button():
         
         self.rect = self.image.get_rect()
     
+    # Affiche le bouton en question
     def Afficher(self, fenetre):
         fenetre.blit(self.image, (self.x, self.y))
 
+# Fonction qui vérifie si le clic est effectué sur le bouton passé en paramètre
 def check_souris(bouton):
     mouse = pygame.mouse.get_pos()
     # On cherche de quel bouton il s'agit
@@ -65,7 +66,7 @@ def texte_timer(fenetre):
     # Chargement de la police
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE + 8)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("{}".format(queue.timer), True, couleur_texte)
+    texte_generation = police.render("{}".format(stockage.timer), True, couleur_texte)
     # Position du texte
     position_texte = ((0.85*constantes.LARGEUR_SETTINGS), (0.1*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)   
@@ -87,7 +88,7 @@ def texte_nb_individus(fenetre):
     # Chargement de la police
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("individus : {} ".format(queue.nb_individus), True, couleur_texte)
+    texte_generation = police.render("individus : {} ".format(stockage.nb_individus), True, couleur_texte)
     # Position du texte
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
@@ -97,7 +98,7 @@ def texte_facteur_food(fenetre):
     couleur_texte = (255, 255, 255)
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("facteur food: {} ".format(queue.facteur_food), True, couleur_texte)
+    texte_generation = police.render("facteur food: {} ".format(stockage.facteur_food), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.2*constantes.HAUTEUR_SETTINGS ))
     fenetre.blit(texte_generation, position_texte)
 
@@ -115,7 +116,7 @@ def texte_time_generation(fenetre):
     couleur_texte = (255, 255, 255)
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("time génération: {} s".format(queue.time_generation), True, couleur_texte)
+    texte_generation = police.render("time génération: {} s".format(stockage.time_generation), True, couleur_texte)
     position_texte = ((0.35*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
 
@@ -199,7 +200,8 @@ def texte_status(fenetre):
     texte_generation = police.render("statut simulation: {}".format(stats.statut), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.5*constantes.HAUTEUR_SETTINGS ))
     fenetre.blit(texte_generation, position_texte)
-       
+
+# Ecran affiché avant la création de l'objet simulation, permet donc l'affichage sans la fonction Afficher de l'objet simulation
 def ecran_avant_début(fenetre):
     # On commence par effacer l'écran de la frame précédante en coloriant l'écran
     fenetre.fill("white")
@@ -239,6 +241,7 @@ def ecran_avant_début(fenetre):
     image = pygame.transform.scale(pygame.image.load("assets/bouton_clear.png"), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
     surface_settings.blit(image, (constantes.x_bouton_clear_settings, constantes.y_bouton_clear_settings))
 
+    # On appelle toutes ces fonctions pour les afficher sur l'écran
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)
     texte_facteur_food(surface_settings)
